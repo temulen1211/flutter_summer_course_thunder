@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wordfind_app/gradient_text.dart';
+import 'package:wordfind_app/start_page.dart';
+import 'package:wordfind_app/task_page.dart';
 import 'package:wordfind_app/welcome_page.dart';
 
 void main() {
@@ -7,7 +9,7 @@ void main() {
       title: 'word find app',
       theme: ThemeData(fontFamily: 'Ribeye'),
       home: Scaffold(
-        body: WelcomePage(),
+        body: TaskPage(),
         //   floatingActionButton: FloatingActionButton(
         //     child: Container(
         //         width: 310,

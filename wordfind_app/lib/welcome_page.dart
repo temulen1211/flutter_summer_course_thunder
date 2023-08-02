@@ -33,6 +33,8 @@ class WelcomePage extends StatelessWidget {
                   GradientText('Game', 31.6)
                 ],
               )),
+              Expanded(child: Image.asset('assets/iCodeGuy.png')),
+              SizedBox(height: 20),
               Expanded(child: GradientText('READY?', 25.0))
             ]),
       ),

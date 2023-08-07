@@ -9,7 +9,7 @@ void main() {
       title: 'word find app',
       theme: ThemeData(fontFamily: 'Ribeye'),
       home: Scaffold(
-        body: TaskPage(),
+        body: StartPage(),
         //   floatingActionButton: FloatingActionButton(
         //     child: Container(
         //         width: 310,

@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:wordfind_app/gradient_text.dart';
 import 'package:wordfind_app/input_field.dart';
+import 'package:wordfind_app/models/user_model.dart';
+import 'package:wordfind_app/task_page.dart';
 
-class StartPage extends StatelessWidget {
+User newUser = User('Guest', 0);
+
+class StartPage extends StatefulWidget {
   const StartPage({super.key});
 
+  @override
+  State<StartPage> createState() => _StartPageState();
+}
+
+class _StartPageState extends State<StartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,6 +22,7 @@ class StartPage extends StatelessWidget {
         leading: IconButton(
           icon: Image.asset('assets/arrow_back.png'),
           onPressed: () {
+            newUser = User('Guest', 0);
             return Navigator.of(context).pop();
           },
         ),
@@ -37,21 +47,43 @@ class StartPage extends StatelessWidget {
               ),
               Padding(padding: EdgeInsets.only(top: 20)),
               GradientText('Player Name', 20.0),
-              InputField(),
+              InputField(
+                onSubmitted: (String value) {
+                  _createUser(value);
+                },
+              ),
               Padding(padding: EdgeInsets.only(top: 20))
             ],
           ),
         ),
       ),
-      floatingActionButton: StartButton(),
+      floatingActionButton: newUser.userName == 'Guest'
+          ? Container()
+          : StartButton(
+              newUser,
+            ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
+
+  _createUser(String userName) {
+    setState(() {
+      newUser.userName = userName;
+    });
+  }
 }
 
-class StartButton extends StatelessWidget {
-  const StartButton({super.key});
+class StartButton extends StatefulWidget {
+  const StartButton(
+    User newUser, {
+    super.key,
+  });
 
+  @override
+  State<StartButton> createState() => _StartButtonState();
+}
+
+class _StartButtonState extends State<StartButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -65,7 +97,14 @@ class StartButton extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(26)),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => TaskPage(
+                        newUser: newUser,
+                      )));
+        },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,
           elevation: 0,
